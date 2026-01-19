@@ -29,13 +29,6 @@ public class VendorControllerV1 {
         return service.getAllUsers();
     }
 
-    //devtool testing
-  /*  @GetMapping("/test")
-    public String test() {
-        return "DEVTOOLS WORKING - V1";
-    }*/
-
-
     @PutMapping("/{id}")
     public vendor updateUser(@PathVariable Long id,
                            @RequestBody vendor user) {
