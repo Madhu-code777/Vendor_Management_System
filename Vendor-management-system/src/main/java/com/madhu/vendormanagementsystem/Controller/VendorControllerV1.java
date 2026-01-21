@@ -4,6 +4,8 @@ import com.madhu.vendormanagementsystem.service.VendorService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/vendors")
@@ -15,12 +17,12 @@ public class VendorControllerV1 {
     }
 
 
-    @PostMapping public vendor create(@RequestBody vendor user){
+    @PostMapping public vendor create(@Valid @RequestBody vendor user){
         return service.createUser(user);
     }
 
 
-    @GetMapping("/{id}") public vendor get(@PathVariable Long id){
+    @GetMapping("/{id}") public vendor get(@PathVariable UUID id){
         return service.getUserById(id);
     }
 
@@ -30,14 +32,19 @@ public class VendorControllerV1 {
     }
 
     @PutMapping("/{id}")
-    public vendor updateUser(@PathVariable Long id,
+    public vendor updateUser(@PathVariable UUID id,
                            @RequestBody vendor user) {
         return service.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable UUID id) {
         service.deleteUser(id);
         return "vendor deleted successfully with id " + id;
+    }
+    @DeleteMapping
+    public String deleteAllUser(){
+        service.deleteAllUser();
+        return "All Vendors deleted successfully";
     }
 }
